@@ -133,7 +133,7 @@ const graphSeries = async (symbol) => {
 }
   
 analyzeCoins();
-setInterval(analyzeCoins, 60000);
+setInterval(analyzeCoins, 30000);
 window.onload = (event) => {
   graphSeries('BTCUSDT');
 };
