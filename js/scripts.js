@@ -126,7 +126,7 @@ const graphSeries = async (symbol) => {
       borderVisible: false,
     });
   emaSeries = chart.addLineSeries({
-    color: 'rgba(255, 255, 255 ,0.569)',
+    color: 'rgba(255, 255, 255 ,1)',
     lineWidth: 2,
   });
   graph(series, symbol, emaSeries);  
