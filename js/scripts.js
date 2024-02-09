@@ -10,7 +10,7 @@ const fetchKline = async (symbol) => {
   return { symbol, EMA_dist: emaDist };
 };
 var series = null;
-
+var emaSeries  = null ;
 const analyzeCoins = async () => {
   const coinsResponse = await fetch('https://api.bybit.com/v5/market/instruments-info?category=linear');
   const coinsData = await coinsResponse.json();
@@ -35,12 +35,13 @@ const populateTable = (tableId, data) => {
       const cell1 = row.insertCell(0);
       const cell2 = row.insertCell(1);
       cell1.textContent = symbol;
-      cell1.onclick = () => graph(series, symbol);
-      cell2.textContent = EMA_dist;
+      cell1.onclick = () => graph(series, symbol, emaSeries);
+      // round texContent to 2 decimal places and add % symbol
+      cell2.textContent = `${EMA_dist.toFixed(2)}%`;
   });
 };
 
-const graph = async (series, symbol) => {
+const graph = async (series, symbol, emaSeries) => {
   const url = `https://api.bybit.com/v5/market/kline?category=linear&symbol=${symbol}&interval=1`;
   const response = await fetch(url);
   const data = await response.json();
@@ -55,12 +56,20 @@ const graph = async (series, symbol) => {
       })).reverse() ;
   }
   const datosConv1 = convertirDatos(kline)
-  series.setData(datosConv1)
+  const numericValues = kline.map(entry => parseFloat(entry[1]));
+  const ema = EMA(numericValues, 59).reverse();
+  const emaData = datosConv1.slice(0, ema.length).map((entry, index) => ({
+    time: entry.time,
+    value: ema[index], // Aquí asignamos el valor de la EMA a la serie
+  }));
+
+  emaSeries.setData(emaData);
+  console.log(ema);
+  series.setData(datosConv1);
   
 }
 
 const graphSeries = async (symbol) => {
-  
   var chart = LightweightCharts.createChart(document.getElementById('chart'), {
     width: 600,
     height: 300,
@@ -89,23 +98,16 @@ const graphSeries = async (symbol) => {
     },
   });
   chart.applyOptions({
-    watermark: {
-        color: 'rgba(67, 95, 118, 0.4)',
-        visible: true,
-        text: '',
-        fontSize: 24,
-        horzAlign: 'left',
-        vertAlign: 'bottom',
-    },
-                                            priceFormat: {
-        type: 'custom',
-        minMove: '0.00000001',
-        formatter: (price) => {
+    priceFormat: {
+    type: 'custom',
+    minMove: '0.00000001',
+    formatter: (price) => {
             if (price < 0.001) return parseFloat(price).toFixed(8)
             else if (price >= 0.001 && price < 1) return parseFloat(price).toFixed(6)
             else return parseFloat(price)
         }
     },                                         priceScale: {
+        autoScale: true
     },
     localization: {
         locale: 'en-US',
@@ -123,10 +125,15 @@ const graphSeries = async (symbol) => {
       wickDownColor: 'rgb(255,82,82)',
       borderVisible: false,
     });
-  graph(series, symbol);  
+  emaSeries = chart.addLineSeries({
+    color: 'rgba(255, 255, 255 ,0.569)',
+    lineWidth: 2,
+  });
+  graph(series, symbol, emaSeries);  
 }
   
 analyzeCoins();
+setInterval(analyzeCoins, 60000);
 window.onload = (event) => {
   graphSeries('BTCUSDT');
 };
