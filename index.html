@@ -1,35 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>       
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+    <head>       
+        <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
 
-    <meta charset="utf-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>La Alquimia Analizer</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/pandas-js@0.2.4/dist/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ta-lib@0.11.0/index.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.min.js"></script>
-    <title>Analyzer</title>
-    
-    <!-- Estilos CSS -->
-    <style>
-        body {
-            background-color: black; /* Cambiar el color de fondo a negro */
-            color: white; /* Cambiar el color del texto a blanco */
-        }
-    </style>
-</head>
-<body style="padding-left: 20px;">
-    <h1>EMA ANALISIS</h1>
-    <div style="display: flex-row">
+        <meta charset="utf-8" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>La Alquimia Analizer</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/pandas-js@0.2.4/dist/index.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/ta-lib@0.11.0/index.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.min.js">
+            
+        </script>
+        <title>Analyzer</title>
+    </head>
+    <body style="padding-left: 20px; background-color: black; color: white">
+        <h1>EMA ANALISIS</h1>
+        <div style="display: flex-row">
+            
         <button onclick="analyzeCoins()">Analize</button>
         <h2> Interval </h2>
         <select id="interval">
@@ -39,38 +34,48 @@
             <option value="30">30 min</option>
             <option value="60">60 min</option>
         </select>    
-    </div>
-    <div style=" display: flex; flex-wrap: wrap;">
-        <div style=" padding-left: 20px; display: flex; flex-wrap: wrap;">
-            <div style="margin-right: 20px;">
-                <h2>Positive EMA Distances</h2>
-                <table id="positiveTable" bordercolor="red">
-                    <thead>
-                        <tr>
-                            <th>Symbol</th>
-                            <th>EMA Distance</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div>
-                <h2>Negative EMA Distances</h2>
-                <table id="negativeTable"  bordercolor="green">
-                    <thead>
-                        <tr>
-                            <th>Symbol</th>
-                            <th>EMA Distance</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
         </div>
-        <div style="padding-left: 20px; display: flex-row">
-            <h2>Historical Chart</h2>
-            <div id="chart"></div>
+        <div style=" display: flex; flex-wrap: wrap;">
+            
+            <div style=" padding-left: 20px; display: flex; flex-wrap: wrap;">
+                <div style="margin-right: 20px;">
+                    <h2>Positive EMA Distances</h2>
+                    <table id="positiveTable" bordercolor="red">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>EMA Distance</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+        
+                <div>
+                    <h2>Negative EMA Distances</h2>
+                    <table id="negativeTable"  bordercolor="green">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>EMA Distance</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="padding-left: 20px; display: flex-row">
+                <h2>Historical Chart</h2>
+                <div id="chart"></div>
+            </div>
+
         </div>
-    </div>
-</body>
-</html>
+    
+    
+    
+        <script>
+        </script>
+    </body>
+    </html>
+    
